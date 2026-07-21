@@ -2,6 +2,7 @@
 
 
 from fastapi import FastAPI 
+from contextlib import asynccontextmanager 
 
 app = FastAPI() 
 
@@ -10,4 +11,7 @@ app = FastAPI()
 async def main() : 
     return {"Detail" : "welcome"}
 
-        
+
+@asynccontextmanager
+async def lifespan(app : FastAPI) : 
+    yield
