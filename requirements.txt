@@ -1,0 +1,15 @@
+fastapi[standard]
+uvicorn 
+pydantic
+
+structlog
+redis
+sqlalchemy
+
+asyncpg
+alembic 
+cryptography
+
+pytest 
+apscheduler
+
