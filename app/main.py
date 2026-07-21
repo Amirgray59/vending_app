@@ -4,7 +4,7 @@
 from fastapi import FastAPI 
 from contextlib import asynccontextmanager 
 
-from app.core.logger import get_logger
+from app.core.logger import get_logger , configure_logging 
 from app.db.session import check_db_connection , async_engine 
 
 from app.db.redis import get_redis , close_redis
@@ -18,6 +18,9 @@ async def lifespan(app : FastAPI) :
     logger.info("app starting ... ") 
 
     is_ok = await check_db_connection()
+
+    configure_logging()
+    
     if not is_ok : 
         logger.error("Database is not ok")
     

@@ -42,7 +42,7 @@ def configure_logging(level: str = "INFO") -> None:
     )
 
     structlog.configure(
-        processors=_build_processors(settings.is_development),
+        processors=_build_processors(True),
         wrapper_class=structlog.make_filtering_bound_logger(level_value),
         context_class=dict,
         logger_factory=structlog.PrintLoggerFactory(),
@@ -50,7 +50,7 @@ def configure_logging(level: str = "INFO") -> None:
     )
 
     # Silence very noisy libraries in production
-    if settings.is_production:
+    if False:
         for noisy in ("uvicorn.access", "sqlalchemy.engine", "asyncio"):
             logging.getLogger(noisy).setLevel(logging.WARNING)
 
