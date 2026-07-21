@@ -5,9 +5,9 @@ from fastapi import FastAPI
 from contextlib import asynccontextmanager 
 
 from app.core.logger import get_logger
-from app.db.session import check_db_connection
+from app.db.session import check_db_connection , async_engine 
 
-from app.db.redis import get_redis 
+from app.db.redis import get_redis , close_redis
 
 
 logger = get_logger(__name__)
@@ -33,6 +33,13 @@ async def lifespan(app : FastAPI) :
 
 
     yield
+
+    logger.info("Shutting down ... ")
+
+    await async_engine.dispose() 
+    await close_redis() 
+
+    logger.info("Goodbuy")
 
 
 app = FastAPI(
