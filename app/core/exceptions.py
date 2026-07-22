@@ -1,19 +1,11 @@
-"""
-Exceptionهای دامنه‌ای (Domain Exceptions).
-
-این کلاس‌ها مستقل از HTTP هستند و در سرویس‌ها پرتاب می‌شوند.
-یک exception-handler عمومی آن‌ها را به پاسخ HTTP مناسب تبدیل می‌کند.
-"""
 
 from typing import Any
 
 
 class AppException(Exception):
-    """پایه تمام استثناهای دامنه."""
-
     status_code: int = 500
     error_code: str = "internal_error"
-    default_message: str = "خطای داخلی سرور رخ داده است."
+    default_message: str = "Internal server error"
 
     def __init__(
         self,
