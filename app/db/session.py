@@ -22,7 +22,8 @@ async_session_maker = async_sessionmaker(
     bind=async_engine
 )
 
-Base = DeclarativeBase()
+class Base(DeclarativeBase):
+    pass
 
 async def get_db() -> AsyncSession : 
     async with async_session_maker() as session : 

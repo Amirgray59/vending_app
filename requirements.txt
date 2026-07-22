@@ -12,4 +12,4 @@ cryptography
 
 pytest 
 apscheduler
-
+psycopg2-binary

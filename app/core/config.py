@@ -40,7 +40,10 @@ class Settings(BaseSettings):
     def database_url(self) -> str : 
         url = f"postgresql+asyncpg://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@{self.POSTGRES_HOST}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}"
         return url 
-
+        
+    def sync_database_url(self) -> str : 
+        url = f"postgresql://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@{self.POSTGRES_HOST}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}"
+        return url 
     # ---- Hardware TCP Gateway ----
     TCP_HOST: str = "0.0.0.0"
     TCP_PORT: int = 9000

@@ -10,12 +10,12 @@ from sqlalchemy import Boolean, Column, ForeignKey, String, Table, Text
 from sqlalchemy.dialects.postgresql import UUID as PGUUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from app.core.database import Base
-from app.models.base import TimestampMixin, UUIDPrimaryKeyMixin
+from app.db.session import Base
+from app.db.models.base import TimestampMixin, UUIDPrimaryKeyMixin
 
 if TYPE_CHECKING:
-    from app.models.permission import Permission
-    from app.models.user import User
+    from app.db.models.permission import Permission
+    from app.db.models.user import User
 
 
 # ---------- association tables ----------
