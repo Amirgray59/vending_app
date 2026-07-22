@@ -1,13 +1,16 @@
 
 
 
-from fastapi import FastAPI 
+from fastapi import FastAPI , Request, Response
 from contextlib import asynccontextmanager 
 
 from app.core.logger import get_logger , configure_logging 
 from app.db.session import check_db_connection , async_engine 
 
 from app.db.redis import get_redis , close_redis
+from app.core.exceptions import AppException as AppExceptions
+from fastapi.responses import ORJSONResponse 
+
 
 
 logger = get_logger(__name__)
@@ -48,6 +51,27 @@ async def lifespan(app : FastAPI) :
 app = FastAPI(
     lifespan=lifespan
 ) 
+
+@app.exception_handler(AppExceptions)
+async def app_exception_handler(request: Request, exc: AppExceptions) -> ORJSONResponse:
+    logger.warning(
+        "app_exception",
+        path=request.url.path,
+        error_code=exc.error_code,
+        message=exc.message,
+    )
+    return ORJSONResponse(
+        status_code=exc.status_code,
+        content={
+            "success": False,
+            "error": {
+                "code": exc.error_code,
+                "message": exc.message,
+                "details": exc.details,
+            },
+        },
+    )
+
 
 
 @app.get("/")
