@@ -33,6 +33,16 @@ class Settings(BaseSettings):
     REDIS_DB: int = 0
     REDIS_PASSWORD: str | None = None
 
+    # ---- Auth ---- 
+    JWT_ALGORITHM: str = "HS256"
+    JWT_SECRET_KEY: str = Field(min_length=32)
+    JWT_REFRESH_SECRET_KEY: str = Field(min_length=32)
+    # JWT_ALGORITHM: str = "HS256"
+    JWT_ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
+    JWT_REFRESH_TOKEN_EXPIRE_DAYS: int = 7
+
+
+
     def Redis_url(self) -> str:
         auth = f":{self.REDIS_PASSWORD}@" if self.REDIS_PASSWORD else ""
         return f"redis://{auth}{self.REDIS_HOST}:{self.REDIS_PORT}/{self.REDIS_DB}"

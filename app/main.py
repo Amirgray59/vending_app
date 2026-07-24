@@ -11,6 +11,7 @@ from app.db.redis import get_redis , close_redis
 from app.core.exceptions import AppException as AppExceptions
 from fastapi.responses import ORJSONResponse 
 
+from app.api.router import app_routers 
 
 
 logger = get_logger(__name__)
@@ -79,3 +80,4 @@ async def main() :
     return {"Detail" : "welcome"}
 
 
+app.include_router(app_routers)
